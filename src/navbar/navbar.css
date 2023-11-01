@@ -1,0 +1,12 @@
+.navbar{
+    display: flex;
+    background-color: #8cbd8ec2;
+}
+.nav-buttons{
+    color: black;
+    font-weight: 100;
+    margin-left: 80px;
+}
+.navbar a{
+    text-decoration: none;
+}
