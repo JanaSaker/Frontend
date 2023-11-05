@@ -27,10 +27,11 @@
   
   img{
     background-image: url(HomePic.png);
+    background-repeat: no-repeat;
     height: 620px;
     border-top-left-radius: 10%;
     border-bottom-left-radius: 10%;
-    border:none;
+    border: none !important;
     left: 160px;
     position: absolute;
     top: 135px;
@@ -77,4 +78,3 @@
     top: 394px;
     z-index: 2;
   }   
-  /* haahaha */
