@@ -33,7 +33,7 @@ const UpcomingHikes = () => {
           {imagesData.length > 0 && (
             <div className='hike-image-container'>
               <img
-                src={chowen}
+                src={`http://localhost:8080/${hike.image}`}
                 alt={imagesData[index % imagesData.length].imageName}
                 className='hike-image'
               />

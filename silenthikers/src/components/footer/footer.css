@@ -1,9 +1,10 @@
+
 .footer-main{
     background-color: #005214;
     color: whitesmoke;
-    align-items: center;
-    justify-content: center;
-    top: 100%;
+    background-color: #439145;
+    display: flex;
+    justify-content: space-between;
 }
 
 .footer-content {

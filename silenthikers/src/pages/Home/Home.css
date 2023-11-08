@@ -27,8 +27,8 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  font-size: xx-large;
   margin-top: 80px;
+  font-size: 70px;
   align-items: baseline;
   font-size: 75px;
   font-weight: 100;
@@ -45,16 +45,17 @@
   background-color: #439145;
   color: whitesmoke;
   max-width: 100%;
-  width: 250px;
-  height: 40px;
+  width: 300px;
+  height: 60px;
   border: none;
   border-radius: 0px 10px 10px 0px;
   margin-top: 50px;
-  font-size: larger;
+  font-size: x-large;
 }
 .home-book:hover {
   background-color: limegreen;
   cursor: pointer;
+  transition: 0.3s;
 }
 .home-aboutus {
   display: flex;
@@ -100,7 +101,7 @@
   background-color: whitesmoke;
   margin: auto;
   padding-bottom: 100px;
-  border-radius:0px 0px 50px 50px;
+  border-radius: 0px 0px 50px 50px;
 }
 .second-h3-group {
   display: flex;
@@ -133,29 +134,11 @@
     opacity: 1;
   }
 }
-
 .Towards,
 .An,
 .Unforgettable,
 .Experience {
-  opacity: 1;
   animation: word-fade 3s ease-in-out;
-}
-
-.Towards {
-  animation-delay: 0s;
-}
-
-.An {
-  animation-delay: 0.5s;
-}
-
-.Unforgettable {
-  animation-delay: 1s;
-}
-
-.Experience {
-  animation-delay: 1.5s;
 }
 
 .Towards {

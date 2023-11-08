@@ -23,7 +23,7 @@ const Footer = () => {
         <div className='copy-div'>
             <span>&copy;2023 All rights reserved</span>
         </div>
-    </footer>
+        </footer>
   )
 }
 

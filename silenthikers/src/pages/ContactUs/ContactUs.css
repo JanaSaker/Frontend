@@ -1,13 +1,28 @@
+.register-container{
+    margin: 0px;
+    padding: 0px;
+}
+.register-img-background{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    object-fit: conver;
+}
 .register-h1{
     font-size: 50px;
     margin-left: 250px;
     margin-top: 60px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     font-family: 'Montserrat', sans-serif;
-    color:black;
-    border-bottom: 2px solid #439145;
+    color:whitesmoke;
     width: 400px;
-    font-weight: 400;
+    font-weight: 550;
+    animation: typing 8s;
+    white-space: nowrap;
+    overflow: hidden;
+    
 }
 .register-form{
     display: flex;
@@ -15,34 +30,58 @@
     gap: 50px;
     width: 70%;
     margin: auto;
-    border: 1px solid #439145;
     padding: 50px;
     border-radius: 50px;
     font-size: x-large;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    background-color: rgba(245, 245, 245, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .register-name-input[type=text],.register-PhoneNumber-input[type=text],.register-email-input[type=text],::placeholder{
-    background-color: white;
+    background-color: rgba(245, 245, 245, 0.4);
     outline: none;
-    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
 }
 .register-name-input[type=text],.register-PhoneNumber-input[type=text],.register-email-input[type=text]{
-    border: 1px solid #439145;
     border-radius: 10px;
     height: 40px;
+    border: none;
 }
 .register-button{
     height: 50px;
-    width: 50%;
+    width: 25%;
     margin: auto;
     font-size: larger;
-    background-color: #439145;
+    background-color: rgba(245, 245, 245, 0.4);
     color: whitesmoke;
     border: none;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .register-inputs-label{
-    border-bottom: 1px solid #439145;
     width: 20%;
-    font-family:'Courier New', Courier, monospace
+    font-family:'Courier New', Courier, monospace;
+    color: whitesmoke;
+    font-size: xx-large;
 }
+.register-button:hover{
+    cursor: pointer;
+    color: black;
+}
+.error-message {
+    position: absolute;
+    top: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(245, 245, 245, 0.326);
+    color: red;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 70%; }
+  }
+  

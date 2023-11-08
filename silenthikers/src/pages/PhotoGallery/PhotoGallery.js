@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './PhotoGallery.css';
+import { Link } from 'react-router-dom'
 
 const PhotoGallery = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   useEffect(() => {
     setLoading(true);
@@ -31,12 +34,25 @@ const PhotoGallery = () => {
     );
   };
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Get the form data
     const formData = new FormData();
     formData.append('image', event.target.elements.fileInput.files[0]);
     formData.append('phoneNumber', event.target.elements.phoneNumberInput.value);
+    if(!event.target.elements.phoneNumberInput.value && !event.target.elements.fileInput.files[0]){
+      setErrorMessage('select a photo and provide valid a number')
+      return
+    }
+    if(!event.target.elements.phoneNumberInput.value){
+      setErrorMessage('please provid a valid phone number')
+      return
+    }
+    if(!event.target.elements.fileInput.files[0]){
+      setErrorMessage('please select an image to upload')
+      return
+    }
     try {
       // Make the POST request
          await axios.post(
@@ -48,7 +64,6 @@ const PhotoGallery = () => {
           },
         }
       );
-
       // Refresh the gallery by fetching the updated data
       setLoading(true);
       axios
@@ -60,12 +75,14 @@ const PhotoGallery = () => {
         .catch((err) => {
           console.log(err);
           setLoading(false);
+          setErrorMessage('Error uploading image, make sure you provided an image and a valid number')
         });
 
       // Clear the form
       event.target.reset();
     } catch (error) {
       console.error(error);
+      setErrorMessage('Error uploading image, make sure you provided an image and a valid number')
     }
   };
 
@@ -77,6 +94,7 @@ const PhotoGallery = () => {
         <div>Loading...</div>
       ) : (
         <div className="gallery-container">
+      <div className="nav-buttons-text">Not <Link to={'/ContactUs'}>Registered?</Link> Register and Share Your Experience With Us</div>
           <div className="small-images">
             {data
               .filter((_, index) => index !== currentImageIndex)
@@ -100,7 +118,7 @@ const PhotoGallery = () => {
         <form className="image-form" onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Enter a Phone Number"
+            placeholder="Enter a valid number"
             name="phoneNumber"
             id="phoneNumberInput"
             className="phone-number"
@@ -117,6 +135,7 @@ const PhotoGallery = () => {
           <button type="submit" className="custom-upload-button">
             Upload Photo
           </button>
+          {errorMessage && <div className="photo-error-message">{errorMessage}</div>}
         </form>
         <div className="nav-buttons">
           <button className="previous" onClick={previousImage}>
