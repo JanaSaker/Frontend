@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UpcomingHikes.css';
 import { FaMapMarkerAlt, FaCalendarAlt, FaUsers } from 'react-icons/fa';
-import chowen from './chowen.jpeg'
-import { Link } from 'react-router-dom';
 
 const UpcomingHikes = () => {
   const [hikesData, setHikesData] = useState([]);
