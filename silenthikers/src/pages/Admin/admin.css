@@ -34,7 +34,7 @@
     margin: 5px;
     width: 100px;
 }
-.admin-hikes-container, .admin-photos-container, .admin-bookings-container, .admin-users-container{
+.admin-hikes-container, .admin-images-container, .admin-bookings-container, .admin-users-container{
     display: flex;
     border: 1px solid #439145;
     height: 50px;

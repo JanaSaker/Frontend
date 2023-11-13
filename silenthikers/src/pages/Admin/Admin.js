@@ -23,13 +23,13 @@ const Admin = () => {
       });
   };
 
-  const fetchPhotos = async () => {
+  const fetchimages = async () => {
     setLoading(true);
     axios
       .get('https://silent-hikers1-o1fr.onrender.com/api/images')
       .then((response) => {
         setData(response.data);
-        setDataType('photos');
+        setDataType('images');
         console.log(response.data);
       })
       .catch((error) => {
@@ -72,7 +72,7 @@ const Admin = () => {
   ////////////////////////////////////////
   const deleteData = async (id) => {
     setLoading(true);
-    axios
+    await axios
       .delete(`https://silent-hikers1-o1fr.onrender.com/api/${dataType}/${id}`)
       .then(() => {
         // Remove the deleted item from the local state
@@ -109,8 +109,8 @@ const Admin = () => {
         <button className="admin-buttons" onClick={fetchHikes}>
           Hikes
         </button>
-        <button className="admin-buttons" onClick={fetchPhotos}>
-          photos
+        <button className="admin-buttons" onClick={fetchimages}>
+          images
         </button>
         <button className="admin-buttons" onClick={fetchBookings}>
           bookings
@@ -131,10 +131,10 @@ const Admin = () => {
                   </div>
                 </div>
               )}
-              {dataType === 'photos' && (
+              {dataType === 'images' && (
                 <div>
-                  <div className="admin-photos-container">
-                    {item.image}
+                  <div className="admin-images-container">
+                    {item.image} , 
                     <button className='admin-delete-button' onClick={() => deleteData(item._id)}>Delete</button>
                   </div>
                 </div>
