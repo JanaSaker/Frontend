@@ -1,62 +1,22 @@
-.hikes-container {
+.upcoming-hikes-container{
+height: 150vh !important;
+}
+.mySwiper1 {
+  width: 500px;
+  height: 700px;
+}
+.swiperslide1 {
   display: flex;
-  margin: 5% 8%;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-.upcoming-header {
-  font-size: 3.125rem;
-  margin-left: 10%;
-  margin-top: 60px;
-  font-family: 'Montserrat', sans-serif;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
   color: black;
-  border-bottom: 2px solid #439145;
-  width: 30%;
-  font-weight: 400;
-  animation: pulseBeat 1s ease-in-out;
-
-}
-.upcoming-buttons-text{
-  margin-bottom: 10px;
-  font-size: 1.125rem;
-  margin-left: 10%;
-  font-family: 'Montserrat', sans-serif;
-  color: black;
-  width: 50%;
-  font-weight: 400;
-  margin-top: 10px;
-}
-.upcoming-buttons-text a{
-  text-decoration: none;
-  color: #439145;
-}
-.hike-card {
-  border-radius: 12px;
-  margin: 20px;
-  width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
-  flex: 1;
-  z-index: 1;
 }
 
-.hike-card:hover {
-  transform: translateY(-5px);
+.swiperslide1{
+  background-color: whitesmoke;
 }
-
-.hike-image-container {
-  width: 100%;
-}
-
-.hike-image {
-  width: 100%;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  object-fit: cover;
-  height: 400px;
-  max-height: 100%;
-}
-
 .hike-spots {
   margin-left: 3%;
   font-size: 1.25rem;
@@ -86,12 +46,15 @@
   font-size: 1.5rem;
   color: #555;
   margin-bottom: 5px;
+  font-weight: 200;
+
 }
 
 .hike-description-details {
   font-size: 1.25rem;
   color: #555;
   font-style: italic;
+  font-weight: 200;
 }
 
 .hike-booking {
@@ -103,107 +66,36 @@
 .available-spots {
   padding-right: 10px;
 }
-.book-btn{
-  background-color: #439145;
-  color: whitesmoke;
-  border-radius: 10px;
-  width: 10vw;
-  height: 4vh;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
+.hike-image-container{
+  object-fit: cover;
 }
-.book-btn:hover{
-  background-color: limegreen;
-}
-.form-input-hike{
-  width: 10vw;
-  height: 3.5vh;
-  background-color: whitesmoke;
-  caret-color: transparent;
-  cursor: pointer;
-  color: #439145;
-  border: none;
-  padding: 10px;
-  outline: none;
-  font-size: 1rem;
-}
-.form-input{
-  width: 10vw;
-  height: 3.5vh;
-  background-color: #439145;
-  color: whitesmoke;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  font-size: 0.8rem;
-}
-.form-input::placeholder{
-  background-color: #439145;
-  opacity: 0.5;
-  color: whitesmoke;
-}
-
-.form-submit{
-  background-color: #439145;
-  width: 5vw;
-  height: 3.5vh;
-  border: none;
-  border-radius: 10px;
-  color: whitesmoke;
-  cursor: pointer;
-}
-.form-submit:hover{
-  background-color: limegreen;
-}
-.close-form{
-  background-color: whitesmoke;
-  width: 5vw;
-  height: 3.5vh;
-  border: 1px solid red;
-  border-radius: 10px;
-  color: red;
-}
-.close-form:hover{
-  background-color: red;
-  color: whitesmoke;
-}
-.submit-cancel{
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.form-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: baseline;
-}
-
-@media screen and (max-width: 1200px) {
-  .hikes-container {
-    margin: 2% 5%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .hike-card {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .hikes-container {
-    display: block;
-  }
-  .hike-card {
-    margin: 10px 0;
-    display: block;
-    margin: 3% auto;
+@media screen and (max-width: 669px) {
+  .mySwiper1 {
     width: 80%;
+    height: 700px;
   }
-}
+  .hike-spots {
+    font-size: 1rem;
+  }
+  .hike-name {
+    font-size: 1.5rem;
+  }
+  
+  .hike-date,
+  .hike-location {
+    font-size: 1rem;
+  }
+  .hike-description-details {
+    font-size: 1rem;
+  }
+  .hike-booking {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+ }
+ @media screen and (max-width: 800px) {
+  .upcoming-hikes-container{
+    height: 150vh !important;
+    }
+ }

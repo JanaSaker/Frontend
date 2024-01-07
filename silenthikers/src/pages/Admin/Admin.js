@@ -1,164 +1,56 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../Admin/admin.css';
+import { useState } from "react";
+import "../Admin/admin.css";
+import { Link } from "react-router-dom";
+import logo from "../../components/navbar/21.png";
+import AdminBookings from "./components/AdminBookings";
+import AdminUsers from "./components/AdminUsers";
+import AdminHikes from "./components/AdminHikes";
+import AdminImages from "./components/AdminImages";
 
 const Admin = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [dataType, setDataType] = useState('');
-
-  const fetchHikes = async () => {
-    setLoading(true);
-    axios
-      .get('https://silent-hikers1-o1fr.onrender.com/api/hikes')
-      .then((response) => {
-        setData(response.data);
-        setDataType('hikes');
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-  };
-
-  const fetchimages = async () => {
-    setLoading(true);
-    axios
-      .get('https://silent-hikers1-o1fr.onrender.com/api/images')
-      .then((response) => {
-        setData(response.data);
-        setDataType('images');
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const fetchBookings = async () => {
-    setLoading(true);
-    axios
-      .get('https://silent-hikers1-o1fr.onrender.com/api/bookings')
-      .then((response) => {
-        setData(response.data);
-        setDataType('bookings');
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-  };
-
-  const fetchUsers = async () => {
-    setLoading(true);
-    axios
-      .get('https://silent-hikers1-o1fr.onrender.com/api/users')
-      .then((response) => {
-        setData(response.data);
-        setDataType('users');
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-  };
-
-  ////////////////////////////////////////
-  const deleteData = async (id) => {
-    setLoading(true);
-    await axios
-      .delete(`https://silent-hikers1-o1fr.onrender.com/api/${dataType}/${id}`)
-      .then(() => {
-        // Remove the deleted item from the local state
-        setData(data.filter((item) => item.id !== id));
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-  };
-//////////////////////////////////////////////
-  //   const editData = async (id, updatedData) => {
-  //   const data = {
-
-  //   };
-  //   setLoading(true);
-  //   axios
-  //   .put(`https://silent-hikers1-o1fr.onrender.com/books/${id}` ,data)
-  //   .then(() =>{
-  //     setLoading(false)
-  //   })
-  //   .catch((err) => {
-  //     setLoading(false)
-  //     alert('an error occured please check your console')
-  //     console.log(err);
-  //   })
-  //  };
-  ////////////////////////////////////////////////
+  const [selectedTab, setSelectedTab] = useState("");
 
   return (
-    <div className="admin-body">
-      <div className="admin-dashboard">
-        <button className="admin-buttons" onClick={fetchHikes}>
-          Hikes
-        </button>
-        <button className="admin-buttons" onClick={fetchimages}>
-          images
-        </button>
-        <button className="admin-buttons" onClick={fetchBookings}>
-          bookings
-        </button>
-        <button className="admin-buttons" onClick={fetchUsers}>
-          users
-        </button>
+    <div className="admin-body w-100 vh-100 d-flex">
+      <div className="admin-dashboard h-100 d-flex flex-column gap-2">
+        <img src={logo} alt="" className="pb-5" />
+        <div className="d-flex flex-column align-items-center gap-4">
+        <Link
+          className="d-flex align-items-center text-decoration-none"
+          onClick={() => setSelectedTab("hikes")}
+        >
+          <i className=""></i>
+          <h4 className="mt-3 h5 text-white">Hikes</h4>
+        </Link>
+        <Link
+          className="d-flex align-items-center text-decoration-none"
+          onClick={() => setSelectedTab("images")}
+        >
+          <i className=""></i>
+          <h4 className="mt-3 h5  text-white">Images</h4>
+        </Link>
+        <Link
+          className="d-flex align-items-center text-decoration-none"
+          onClick={() => setSelectedTab("users")}
+        >
+          <i className=""></i>
+          <h4 className="mt-3 h5 text-white">Users</h4>
+        </Link>
+        <Link
+          className="d-flex align-items-center text-decoration-none"
+          onClick={() => setSelectedTab("Bookings")}
+        >
+          <i className=""></i>
+          <h4 className="mt-3 h5 text-white">Bookings</h4>
+        </Link>
       </div>
-      <div className="data-shown">
-        {data &&
-          data.map((item, index) => (
-            <div key={index}>
-              {dataType === 'hikes' && (
-                <div>
-                  <div className="admin-hikes-container">
-                    {item.hikeName} | <div className='hike-description'> {item.hikeDescription}</div> | {item.hikeDate} | {item.hikeLocation} | <img className='admin-hike-image' src={`https://silent-hikers1-o1fr.onrender.com/${item.image}`} alt='' />
-                    <button className='admin-delete-button' onClick={() => deleteData(item._id)}>Delete</button>
-                  </div>
-                </div>
-              )}
-              {dataType === 'images' && (
-                <div>
-                  <div className="admin-images-container">
-                    {item.image} , 
-                    <button className='admin-delete-button' onClick={() => deleteData(item._id)}>Delete</button>
-                  </div>
-                </div>
-              )}
-              {dataType === 'bookings' && (
-                <div>
-                  <div className="admin-bookings-container">
-                    {item._id}
-                    <button className='admin-delete-button' onClick={() => deleteData(item._id)}>Delete</button>
-                  </div>
-                </div>
-              )}
-              {dataType === 'users' && (
-                <div>
-                  <div className="admin-users-container">
-                    {item.email}
-                    <button className='admin-delete-button' onClick={() => deleteData(item._id)}>Delete</button>
-                  </div>
-                </div>
-              )}
-
-            </div>
-          ))}
       </div>
+      <div>
+        {selectedTab === "Bookings" && <AdminBookings />}
+        {selectedTab === "users" && <AdminUsers />}
+        {selectedTab === "hikes" && <AdminHikes />}
+        {selectedTab === "images" && <AdminImages />}
+        </div>
     </div>
   );
 };

@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './PhotoGallery.css';
-import { Link } from 'react-router-dom'
+import Loader from '../../components/loader/Loader'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { EffectCoverflow, Pagination } from 'swiper/modules';
+
 
 const PhotoGallery = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
 
 
@@ -23,17 +33,6 @@ const PhotoGallery = () => {
         setLoading(false);
       });
   }, []);
-
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % data.length);
-  };
-
-  const previousImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
-    );
-  };
-
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -88,65 +87,36 @@ const PhotoGallery = () => {
   };
 
   return (
-    <div>
-      <div className="rectangle"></div>
-      <h1 className="photo-gallery">Photo Gallery</h1>
-      {loading ? (
-        <div>Loading...</div>
+    <div className='vh-100 w-100'>
+        {loading ? (
+        <Loader />
       ) : (
-        <div className="gallery-container">
-      <div className="nav-buttons-text">Share Your Experience With Us<Link to={'/ContactUs'}> Register </Link>with SilentHikers</div>
-          <div className="small-images">
-            {data
-              .filter((_, index) => index !== currentImageIndex)
-              .slice(0, 3) // Display the first two smaller images
-              .map((item, index) => (
-                <div key={index}>
-                  <img
-                    className="image-small"
-                    src={`https://silent-hikers1-o1fr.onrender.com/${item.image}`}
-                    alt={`pic ${index}`}
-                    onError={() => {
-                      console.log(`Error loading image: ${item.image}`);
-                    }}
-                  />
-                </div>
-              ))}
-          </div>
-        </div>
-      )}
-      <div className="navigation-buttons">
-        <form className="image-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Enter a valid number"
-            name="phoneNumber"
-            id="phoneNumberInput"
-            className="phone-number"
-          />
-          <label htmlFor="fileInput" className="custom-file-input">
-            Choose a Photo
-          </label>
-          <input
-            className="photo-input"
-            type="file"
-            accept="image/*"
-            id="fileInput"
-          />
-          <button type="submit" className="custom-upload-button">
-            Upload Photo
-          </button>
-          {errorMessage && <div className="photo-error-message">{errorMessage}</div>}
-        </form>
-        <div className="nav-buttons-photo">
-          <button className="previous" onClick={previousImage}>
-            Prev
-          </button>
-          <button className="next" onClick={nextImage}>
-            Next
-          </button>
-        </div>
-      </div>
+    <div className='photo-gallery-container'>
+      <h1 className="photo-gallery text-dark m-5">Photo Gallery</h1>
+        <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={'3'}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination]}
+        className="mySwiper"
+      >
+          {data.map((item, index) => (
+            <SwiperSlide key={index}>
+              <img src={`https://silent-hikers1-o1fr.onrender.com/${item.image}`} alt={`pic ${index}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+    </div>
+    )}
     </div>
   );
 };

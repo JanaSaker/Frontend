@@ -8,6 +8,9 @@ import ContactUs from './pages/ContactUs/ContactUs'
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Admin from './pages/Admin/Admin';
+import Booking from './pages/booking/Booking';
+import AdminLogin from './pages/Admin/AdminLogin';
+
 
 
 const App = () => {
@@ -28,9 +31,11 @@ const App = () => {
       <Route path='/hikes' element={<UpcomingHikes />}></Route>
       <Route path='/images' element={<PhotoGallery />}></Route>
       <Route path='/F&Q' element={<Questions />}></Route>
-      <Route path='/ContactUs' element={<ContactUs />}></Route >
+      <Route path='/signup/signin' element={<ContactUs />}></Route >
+      <Route path='/booking' element={<Booking />}></Route >
       </Route>
-      <Route path='/admin/silenthikers123' element={<Admin />}></Route>
+      <Route path='/admin/home' element={<Admin />}></Route>
+      <Route path='/admin' element={<AdminLogin />}></Route>
     </Routes>
   )
 }

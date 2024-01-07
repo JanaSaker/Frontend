@@ -3,67 +3,86 @@ import axios from 'axios';
 import './UpcomingHikes.css';
 import { FaMapMarkerAlt, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Form from '../../components/form/Form';
+import Loader from '../../components/loader/Loader'
+//swipper js imports
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper/modules';
 
 const UpcomingHikes = () => {
   const [hikesData, setHikesData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true)
     axios
       .get('https://silent-hikers1-o1fr.onrender.com/api/hikes')
       .then((response) => {
         setHikesData(response.data);
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false)
       });
   }, []);
 
   return (
-    <>
-      <div className="upcoming-header">Upcoming Hikes</div>
-      <div className="upcoming-buttons-text">
-        Not <Link to={'/ContactUs'}>Registered?</Link> Register and Book now
-      </div>
-
-      <div className="hikes-container">
-        {hikesData.map((hike, index) => (
-          <div key={index} className="hike-card">
-            {hikesData.length > 0 && (
-              <div className="hike-image-container">
-                <img
-                  src={`https://silent-hikers1-o1fr.onrender.com/${hike.image}`}
-                  alt={hikesData[index % hikesData.length].imageName}
-                  className="hike-image"
-                />
-                <div className="hike-header">
-                  <h3 className="hike-name">{hike.hikeName}</h3>
-                  <p className="hike-date">
-                    <FaCalendarAlt /> <b>{hike.hikeDate}</b>
-                  </p>
-                  <p className="hike-location">
-                    {' '}
-                    <FaMapMarkerAlt /> <b>{hike.hikeLocation}</b>
-                  </p>
-                </div>
-              </div>
-            )}
-            <div className="hike-details">
-              <p className="hike-description-details">
-                {' '}
-                {hike.hikeDescription}
-              </p>
-            </div>
-            <div className="hike-booking">
-              <p className="hike-spots">
-                Spots: {hike.availableSpots}
-                <FaUsers />{' '}
-              </p>
-            <Form hike={hike}/>
-            </div>
-          </div>
-        ))}
-      </div>
-    </>
+    <div  className='upcoming-hikes-container'>
+    {loading ? ( <Loader />) : (
+     <div>
+     <h1 className="photo-gallery m-5 h1 fw-bold">Upcoming Hikes</h1>
+<Swiper
+ effect={'cards'}
+ grabCursor={true}
+ modules={[EffectCards]}
+ className="mySwiper1"
+>
+ {hikesData.map((hike, index) => (
+   <SwiperSlide key={index} className='swiperslide1'>
+     <div className="hike-card">
+       {hikesData.length > 0 && (
+         <div className="hike-image-container"> 
+           <img
+             src={`https://silent-hikers1-o1fr.onrender.com/${hike.image}`}
+             alt={hikesData[index % hikesData.length].imageName}
+             className="hike-image w-100 h-100"
+           />
+           <div className="hike-header">
+             <h3 className="hike-name">{hike.hikeName}</h3>
+             <p className="hike-date">
+               <FaCalendarAlt /> <b>{hike.hikeDate}</b>
+             </p>
+             <p className="hike-location">
+               {' '}
+               <FaMapMarkerAlt /> <b>{hike.hikeLocation}</b>
+             </p>
+           </div>
+         </div>
+       )}
+       <div className="hike-details">
+         <p className="hike-description-details">
+           {' '}
+          {hike.hikeDescription}
+         </p>
+       </div>
+       <div className="hike-booking">
+         <p className="hike-spots">
+            <FaUsers />{' '}
+           Spots: {hike.availableSpots} 
+         </p>
+         <Link className='nav-link' to={'/booking'} state={{ hike: hike }}>
+       <button className='btn btn-success w-100 hike-button'>Book Now</button>
+       </Link>
+       </div>
+     </div>
+   </SwiperSlide>
+ ))}
+</Swiper>
+</div>
+)}
+    </div>
   );
 };
 

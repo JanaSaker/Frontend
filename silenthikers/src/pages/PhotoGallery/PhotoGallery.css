@@ -1,197 +1,29 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: whitesmoke;
+.photo-gallery-container{
+width: 100% !important;
+  height: 100vh !important;
 }
-.rectangle {
+.swiper {
   width: 100%;
-  height: 310px;
-  background-color: rgba(227, 227, 227, 0.791);;
-  position: absolute;
-  top: 250px;
-  z-index: -1;
-}
-.photo-gallery {
-  display: flex;
-  font-size: 3.125rem;
-  margin-left: 10%;
-  margin-top: 60px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   margin-bottom: 50px;
-  font-family: 'Montserrat', sans-serif;
-  color:black;
+  margin-top: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 400px;
+  height: 400px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+}
+.photo-gallery{
   border-bottom: 2px solid #439145;
-  width: 25%;
-  font-weight: 400;
-  animation: pulseBeat 1s ease-in-out;
-
-}
-.small-images {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 0px 20px;
-}
-.image-small {
-  margin-top: 50px;
-  width: 600px;
-  height: 500px;
-  border-radius: 90px;
-  max-width: 100%;
-  max-height: 100%;
-  transition: transform 0.3s ease-in-out;
-}
-.navigation-buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 15%;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-.previous {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 5px solid #439145;
-  background-color: whitesmoke;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-.next {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 5px solid #439145;
-  background-color: whitesmoke;
-  cursor: pointer;
-  transition: color 0.3s;
-  margin-left: 20px;
-}
-.image-small:hover {
-  transform: scale(1.05);
-}
-
-.next:hover {
-  color: #439145;
-  transition: 0.3s;
-}
-.previous:hover {
-  color: #439145;
-  transition: 0.3s;
-}
-.image-form {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  gap: 10px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-}
-
-.photo-input[type='file'] {
-  display:none;
-}
-
-.custom-file-input {
-  background-color: #439145;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 10px;
-  font-size: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.custom-file-input:hover {
-  background-color:  #268e29;
-  transition: 0.3s;
-}
-.custom-file-input:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.custom-upload-button {
-  background-color: #439145;
-  color: whitesmoke;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-.custom-upload-button:focus {
-  outline: none;
-}
-.custom-upload-button:hover {
-  outline: none;
-  color: white;
-  background-color: limegreen;
-  transition: 0.3s;
-}
-.phone-number[type="text"] {
-  background-color: whitesmoke;
-  color: #439145;
-  padding: 10px 20px;
-  border: 1px solid #439145;
-  cursor: text;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-.phone-number::placeholder{
-  color: #439145;
-  font-size: 1rem;
-  text-align: center;
-  background-color: whitesmoke;
-  text-align: start;
-  opacity: 0.5;
-  box-shadow: none;
-}
-.phone-number:hover::placeholder{
-  text-align: start;
-  box-shadow: none;
-  color: black;
-  transition: 0.3s;
-}
-.phone-number:focus::placeholder{
-  outline: none;
-}
-.phone-number:focus{
-  outline: none;
-}
-.nav-buttons-text{
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 1.5rem;
-}
-.nav-buttons-photo{
-  width: 20%;
-  display: flex;
-  height: 20%;
-}
-.nav-buttons-text a{
-  color: #439145;
-  text-decoration:none;
-}
-.photo-error-message{
-  position: absolute;
-  top: 920px;
-  left: 56%;
-  transform: translateX(-50%);
-  color: red;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  border: 1px solid red;
-  width: 250px;
-}
-.hike-spots{
-  gap: 10px;
-}
-@keyframes pulseBeat {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  width: 30%;
 }
