@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
 .photo-gallery-container{
 width: 100% !important;
   height: 100vh !important;
@@ -26,4 +29,7 @@ width: 100% !important;
 .photo-gallery{
   border-bottom: 2px solid #439145;
   width: 30%;
+}
+.custom-sentence-user-gallery{
+  font-family: pacifico;
 }

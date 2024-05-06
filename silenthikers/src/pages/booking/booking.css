@@ -1,0 +1,5 @@
+@media (max-width: 768px){
+.custom-booking-image {
+      display: none !important;
+   }
+}

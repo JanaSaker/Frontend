@@ -113,6 +113,15 @@
       setShowEditModal(true);
     };
 
+    const formattedDate = (dateString) => {
+      const date = new Date(dateString);
+    
+      // Example: Display only the date in "YYYY-MM-DD" format
+      const formattedDateString = date.toISOString().split('T')[0];
+    
+      return formattedDateString;
+    };
+
 
     return (
       <div  style={{ overflow: 'auto', maxHeight: '740px' }}>
@@ -136,7 +145,7 @@
           </li>
           <li className='d-flex justify-content-between px-4'>
           <FaCalendarAlt />
-          {hike.hikeDate}
+          {formattedDate(hike.hikeDate)}
           </li>
     </ul>
     <div className="card-body d-flex justify-content-center gap-2">

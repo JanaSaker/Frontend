@@ -32,10 +32,10 @@ const AdminBookings = () => {
         `http://localhost:5000/admins/approve/booking/${item.id}/hike/${item.Hike.id}`
       );
       console.log(response);
-      setMessage("approved Successfully");
+      setMessage("Approved Successfully");
     } catch (err) {
       console.log(err);
-      setMessage("failed to Approve");
+      setMessage("Failed to Approve");
     }
   };
 
@@ -58,10 +58,11 @@ const AdminBookings = () => {
         `http://localhost:5000/bookings/${item.id}`
       );
       console.log(response);
-      setMessage("deleted Successfully");
+      setMessage("Deleted Successfully");
+      setbookings((prevBookings) => prevBookings.filter((b) => b.id !== item.id));
     } catch (err) {
       console.log(err);
-      setMessage("failed to Delete");
+      setMessage("Failed to Delete");
     }
   };
 
@@ -94,8 +95,19 @@ const AdminBookings = () => {
       <div className="w-100">
         <div className="d-flex row m-0 w-100">
           <div className="d-flex p-3 w-100">
-            <div>
+            <div className="d-flex gap-5 m-2">
               <input type="text" className="px-3" placeholder="Search" />
+              <div className="d-flex flex-column">
+              <p
+                        className={
+                          message.includes("Success")
+                            ? "text-success"
+                            : "text-danger"
+                        }
+                      >
+                        {message}
+                      </p>
+              </div>
             </div>
           </div>
           <div className="w-100 p-0">
@@ -111,7 +123,6 @@ const AdminBookings = () => {
                   <th scope="col">status</th>
                   <th scope="col">Approve/Reject Hike</th>
                   <th scope="col">Action </th>
-                  <th scope="col">Console Message </th>
                 </tr>
               </thead>
               {bookings &&
@@ -163,15 +174,6 @@ const AdminBookings = () => {
                           className="fa fa-edit m-2"
                           onClick={() => handleEditClick(item)}
                         ></i>
-                      </td>
-                      <td
-                        className={
-                          message.includes("Success")
-                            ? "text-success"
-                            : "text-danger"
-                        }
-                      >
-                        {message}
                       </td>
                     </tr>
                   </tbody>

@@ -1,9 +1,7 @@
 import React from 'react';
 import i20 from '../Home/28.jpeg'
-import axios from 'axios'
 import { useSignInAdmin } from '../../hooks/useSignInAdmin';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
     const [userName, setUserName] = useState('');
@@ -13,7 +11,6 @@ const AdminLogin = () => {
 
     const handleLogin = async (event) => {
       event.preventDefault();
-  
       // Get the input values from the signInAdmin hook
       await signInAdmin(userName, password);
     };
@@ -59,6 +56,9 @@ const AdminLogin = () => {
                   <button type="submit" className="btn btn-success btn-block mb-4 w-100" onClick={handleLogin}>
                     Log In
                   </button>
+                  {error && (
+                  <div className={error.includes('success') ? 'text-success' : 'text-danger'}>{error}</div>
+                  )}
                 </form>
               </div>
             </div>

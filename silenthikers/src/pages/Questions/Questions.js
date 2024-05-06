@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Questions = () => {
   return (
 <section>
-  <h3 className="text-center mb-4 pb-2 text-success fw-bold mt-5">FAQ</h3>
+  <h3 className="text-center mb-4 pb-2 text-success fw-bold mt-5 custom-sentence-user-gallery">FAQ</h3>
   <p className="text-center mb-5">
     Find the answers for the most frequently asked questions below
   </p>

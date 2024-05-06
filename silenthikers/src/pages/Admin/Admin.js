@@ -6,9 +6,15 @@ import AdminBookings from "./components/AdminBookings";
 import AdminUsers from "./components/AdminUsers";
 import AdminHikes from "./components/AdminHikes";
 import AdminImages from "./components/AdminImages";
+import { useLogOut } from "../../hooks/useLogOut";
 
 const Admin = () => {
-  const [selectedTab, setSelectedTab] = useState("");
+  const [selectedTab, setSelectedTab] = useState("hikes");
+  const { logout } = useLogOut()
+
+  const handleLogout = () => {
+    logout()
+  }
 
   return (
     <div className="admin-body w-100 vh-100 d-flex">
@@ -19,29 +25,29 @@ const Admin = () => {
           className="d-flex align-items-center text-decoration-none"
           onClick={() => setSelectedTab("hikes")}
         >
-          <i className=""></i>
-          <h4 className="mt-3 h5 text-white">Hikes</h4>
+
+          <h4 className="mt-3 h5 text-white"><span className="fa fa-mountain"></span>   Hikes</h4>
         </Link>
         <Link
           className="d-flex align-items-center text-decoration-none"
           onClick={() => setSelectedTab("images")}
         >
-          <i className=""></i>
-          <h4 className="mt-3 h5  text-white">Images</h4>
+          <h4 className="mt-3 h5  text-white"><span className="fa fa-image"></span>   Images</h4>
         </Link>
         <Link
           className="d-flex align-items-center text-decoration-none"
           onClick={() => setSelectedTab("users")}
         >
-          <i className=""></i>
-          <h4 className="mt-3 h5 text-white">Users</h4>
+          <h4 className="mt-3 h5 text-white"><span className="fa fa-user"></span>   Users</h4>
         </Link>
         <Link
           className="d-flex align-items-center text-decoration-none"
           onClick={() => setSelectedTab("Bookings")}
         >
-          <i className=""></i>
-          <h4 className="mt-3 h5 text-white">Bookings</h4>
+          <h4 className="mt-3 h5 text-white"><span className="fa fa-book"></span>   Bookings</h4>
+        </Link>
+        <Link className="nav-link">
+        <h4 onClick={handleLogout} className="mt-3 h5 text-white "><span className="fa fa-sign-out"></span>   LogOut</h4>
         </Link>
       </div>
       </div>

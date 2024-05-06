@@ -3,3 +3,16 @@
     background-color: #439145;
     width: 15%;
 }
+
+@media screen and (max-width: 768px) {
+    .admin-body {
+      display: flex;
+      flex-direction: row;
+    }
+    .admin-dashboard {
+      width: 25%; /* Adjust this value according to your needs */
+    }
+    .content {
+      width: 50%; /* Adjust this value according to your needs */
+    }
+   }

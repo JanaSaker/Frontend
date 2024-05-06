@@ -49,6 +49,7 @@ const AdminUsers = () => {
       );
       console.log(response);
       setMessage('deleted Successfully')
+      setUsers((prevUsers) => prevUsers.filter((u) => u.id !== item.id));
     } catch (err) {
       console.log(err);
       setMessage('failed to Delete')
@@ -67,6 +68,7 @@ const AdminUsers = () => {
       setMessage('failed to edit')
     }
   };
+
   const handleEditClick = (item) => {
     setEditItem(item)
     setShowModal(true);
@@ -82,8 +84,19 @@ const AdminUsers = () => {
       <div className="w-100">
         <div className="d-flex row m-0 w-100">
           <div className="d-flex p-3 w-100">
-            <div>
+          <div className="d-flex gap-5 m-2">
               <input type="text" className="px-3" placeholder="Search" />
+              <div className="d-flex flex-column">
+              <p
+                        className={
+                          message.includes("Success")
+                            ? "text-success"
+                            : "text-danger"
+                        }
+                      >
+                        {message}
+                      </p>
+              </div>
             </div>
           </div>
           <div className="w-100 p-0">
@@ -95,7 +108,6 @@ const AdminUsers = () => {
                   <th scope="col">Email</th>
                   <th scope="col">Phone Number</th>
                   <th scope="col">Action </th>
-                  <th scope="col">Console Message </th>
                 </tr>
               </thead>
               {users &&
@@ -120,15 +132,10 @@ const AdminUsers = () => {
                             handleEditClick(item);
                           }}></i>
                       </td>
-                      <td className={message.includes('Success') ? 'text-success' : 'text-danger'}>
-                        {message}
-                      </td>
+
                     </tr>
                   </tbody>
                 ))}
-                   <td className={message.includes('Success') ? 'text-success' : 'text-danger'}>
-                        {message}
-                      </td>
             </table>
           </div>
           <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -200,7 +207,7 @@ const AdminUsers = () => {
                                 />
                                 </div>
                                 <div className="fw-light">You can Edit the userEmail</div>
-                                <div>{message}</div>
+                                <div className={message.includes('Success') ? 'text-success' : 'text-danger'}>{message}</div>
                     </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={() => setShowModal(false)}>

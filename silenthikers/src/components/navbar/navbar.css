@@ -3,4 +3,24 @@ background-color: #439145 ;
 }
 .nav-link{
     color: whitesmoke !important;
+    transition: 1ms;
 }
+
+.nav-link:hover{
+  color: rgb(8, 8, 8) !important;
+}
+
+@media (max-width: 991px) {
+    .navbar .navbar-toggler {
+      margin-left: auto; /* Push the toggler to the right */
+    }
+  
+    .navbar-collapse {
+      justify-content: space-between;
+      align-items: baseline; /* Add space between the brand/logo and the toggler */
+    }
+  }
+
+  .custom-image-class{
+    width: 120px;
+  }

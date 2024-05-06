@@ -36,9 +36,9 @@ const [message, setMessage] = useState("");
   }
 
   return (
-    <div className='d-flex m-5 gap-5' style={{ overflow: 'auto', maxHeight: '740px' }}> 
+    <div className='d-flex m-5 gap-5 flex-wrap' style={{ overflow: 'auto', maxHeight: '740px' }}> 
       {data.map((item,index) => (
-        <div key={index} className='w-100 h-100' >
+        <div key={index} className='w-25 h-100' >
           <div>
           <img className='w-100 h-50' src={`http://localhost:5000/${item.image}`} alt={index}/>
           <button className='btn btn-danger w-100 fa fa-trash' onClick={() => handleDelete(item)}></button>

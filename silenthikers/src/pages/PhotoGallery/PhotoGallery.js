@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './PhotoGallery.css';
 import Loader from '../../components/loader/Loader'
+import { Link } from 'react-router-dom'
+import { useAuthContext } from '../../hooks/useAuthContext';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -13,17 +15,31 @@ import 'swiper/css/pagination';
 // import required modules
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+
 
 const PhotoGallery = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [image, setImage] = useState('')
+  const { user } = useAuthContext()
 
+  let phoneNumber = '';
+  if(user){
+   phoneNumber = user.phoneNumber;
+  }
+
+  const formData = new FormData()
+  formData.append('phoneNumber', phoneNumber)
+  formData.append('image', image)
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get('https://silent-hikers1-o1fr.onrender.com/api/images')
+      .get('http://localhost:5000/images')
       .then((response) => {
         setData(response.data);
         setLoading(false);
@@ -33,58 +49,29 @@ const PhotoGallery = () => {
         setLoading(false);
       });
   }, []);
-  
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // Get the form data
-    const formData = new FormData();
-    formData.append('image', event.target.elements.fileInput.files[0]);
-    formData.append('phoneNumber', event.target.elements.phoneNumberInput.value);
-    if(!event.target.elements.phoneNumberInput.value && !event.target.elements.fileInput.files[0]){
-      setErrorMessage('select a photo and provide valid a number')
-      return
-    }
-    if(!event.target.elements.phoneNumberInput.value){
-      setErrorMessage('please provid a valid phone number')
-      return
-    }
-    if(!event.target.elements.fileInput.files[0]){
-      setErrorMessage('please select an image to upload')
-      return
-    }
-    try {
-      // Make the POST request
-         await axios.post(
-        'http://localhost:8080/api/images',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      setErrorMessage('uploading successful!!');
-      // Refresh the gallery by fetching the updated data
-      setLoading(true);
-      axios
-        .get('https://silent-hikers1-o1fr.onrender.com/api/images')
-        .then((response) => {
-          setData(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-          setErrorMessage('Error uploading image, make sure you provided an image and a valid number')
-        });
 
-      // Clear the form
-      event.target.reset();
-    } catch (error) {
-      console.error(error);
-      setErrorMessage('Error uploading image, make sure you provided an image and a valid number')
+  const handleCreateImage = async(e) => {
+    e.preventDefault()
+    try{
+    const response = await axios.post('http://localhost:5000/images',formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    console.log(response)
+    setErrorMessage("Uploaded successfully")
+    setData((prevImages) => [...prevImages, response.data]); 
+    }catch(error){
+      console.log(error)
+      setErrorMessage('Error uploading')
     }
+  }
+
+  const handeModalClick = () => {
+    setShowModal(true);
   };
+  
+ 
 
   return (
     <div className='vh-100 w-100'>
@@ -92,7 +79,8 @@ const PhotoGallery = () => {
         <Loader />
       ) : (
     <div className='photo-gallery-container'>
-      <h1 className="photo-gallery text-dark m-5">Photo Gallery</h1>
+      <h1 className="photo-gallery text-dark m-5 custom-sentence-user-gallery">Photo Gallery</h1>
+      <div className='text-center custom-sentence-user-gallery'>Already a user? {!user && ( <span><Link className='text-success' to={'/signup/signin'}>Upload</Link></span>)} {user && ( <span className='text-success' onClick={handeModalClick}><Link className='text-success'>Upload</Link></span>)} a photo of your hikes. If not <Link className='text-success' to={'/signup/signin'}>Register</Link>  Now</div>
         <Swiper
         effect={'coverflow'}
         grabCursor={true}
@@ -111,13 +99,45 @@ const PhotoGallery = () => {
       >
           {data.map((item, index) => (
             <SwiperSlide key={index}>
-              <img src={`https://silent-hikers1-o1fr.onrender.com/${item.image}`} alt={`pic ${index}`} />
+              <img src={`http://localhost:5000/${item.image}`} alt={`pic ${index}`} />
             </SwiperSlide>
           ))}
         </Swiper>
     </div>
     )}
+     <Modal show={showModal} onHide={() => setShowModal(false)} >
+                <Modal.Header closeButton>
+                  <Modal.Title>Upload a Photo</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                                  <label
+                  className="form-label mt-4"
+                  htmlFor="hike-name"
+                  >
+                  Photo Url 
+                  </label>
+                  <div className="form-outline flex-fill mb-0">
+                                  <input
+                                    type="file"
+                                    id="hike-name"
+                                    className="form-control"
+                                    onChange={(e) => setImage(e.target.files[0])}
+                                  />
+                                  </div>
+                                  <div className="fw-lighter">Insert an image here</div>
+                                  <div className={errorMessage.includes('success') ? 'text-success' : 'text-danger'}>{errorMessage}</div>
+                      </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={() => setShowModal(false)}>
+                    Close
+                  </Button>
+                  <Button variant="success" onClick={handleCreateImage}>
+                    Upload image
+                  </Button>
+                </Modal.Footer>
+              </Modal>
     </div>
+    
   );
 };
 

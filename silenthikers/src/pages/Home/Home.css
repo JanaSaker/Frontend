@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 .home-header-sentence{
   position: absolute;
   top: 30%;
@@ -7,6 +9,7 @@
  margin-left: 50px;
  color: green !important;
 }
-.vidio-home-page{
-  height: 100% !important;
+.vidio-element {
+  height: 1000px; /* Adjust the height as needed */
+  object-fit: cover; /* Preserve aspect ratio and cover the container */
 }

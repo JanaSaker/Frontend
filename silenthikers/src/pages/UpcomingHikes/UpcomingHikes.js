@@ -4,6 +4,7 @@ import './UpcomingHikes.css';
 import { FaMapMarkerAlt, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Loader from '../../components/loader/Loader'
+import { useAuthContext } from '../../hooks/useAuthContext';
 //swipper js imports
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -13,11 +14,12 @@ import { EffectCards } from 'swiper/modules';
 const UpcomingHikes = () => {
   const [hikesData, setHikesData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuthContext()
 
   useEffect(() => {
     setLoading(true)
     axios
-      .get('https://silent-hikers1-o1fr.onrender.com/api/hikes')
+      .get('http://localhost:5000/hikes')
       .then((response) => {
         setHikesData(response.data);
         setLoading(false)
@@ -28,11 +30,20 @@ const UpcomingHikes = () => {
       });
   }, []);
 
+  const formattedDate = (dateString) => {
+    const date = new Date(dateString);
+  
+    // Example: Display only the date in "YYYY-MM-DD" format
+    const formattedDateString = date.toISOString().split('T')[0];
+  
+    return formattedDateString;
+  };
+
   return (
     <div  className='upcoming-hikes-container'>
     {loading ? ( <Loader />) : (
      <div>
-     <h1 className="photo-gallery m-5 h1 fw-bold">Upcoming Hikes</h1>
+     <h1 className="photo-gallery m-5 h1 fw-bold custom-sentence-user-gallery">Upcoming Hikes</h1>
 <Swiper
  effect={'cards'}
  grabCursor={true}
@@ -45,14 +56,14 @@ const UpcomingHikes = () => {
        {hikesData.length > 0 && (
          <div className="hike-image-container"> 
            <img
-             src={`https://silent-hikers1-o1fr.onrender.com/${hike.image}`}
+             src={`http://localhost:5000/${hike.image}`}
              alt={hikesData[index % hikesData.length].imageName}
              className="hike-image w-100 h-100"
            />
            <div className="hike-header">
              <h3 className="hike-name">{hike.hikeName}</h3>
              <p className="hike-date">
-               <FaCalendarAlt /> <b>{hike.hikeDate}</b>
+               <FaCalendarAlt /> <b>{formattedDate(hike.hikeDate)}</b>
              </p>
              <p className="hike-location">
                {' '}
@@ -72,9 +83,16 @@ const UpcomingHikes = () => {
             <FaUsers />{' '}
            Spots: {hike.availableSpots} 
          </p>
+         {user && user.hasOwnProperty('phoneNumber') && (
          <Link className='nav-link' to={'/booking'} state={{ hike: hike }}>
        <button className='btn btn-success w-100 hike-button'>Book Now</button>
        </Link>
+       )}
+        {!user && (
+         <Link className='nav-link' to={'/signup/signin'}>
+       <button className='btn btn-success w-100 hike-button'>Book Now</button>
+       </Link>
+       )}
        </div>
      </div>
    </SwiperSlide>
